@@ -1,0 +1,85 @@
+﻿@model DataFromViewToController.Models.Employee 
+    @{ 
+        Layout = null;
+    }
+
+<html>
+<head>
+    <meta name="viewport" content="width-device-width" />
+    <title>Index</title>
+
+</head>
+<body>
+    <div>
+        @* 1 way of sending data to the controller *@
+        <section>
+            <br/>
+            @using (Html.BeginForm("PostUsingParameters", "Home")) //first param will be actionmethod and second is controller's name
+            {
+                <input type="text" name="firstName" /><br /><br />
+                <input type="text" name="lastName" /><br />
+                <br />
+                <input type="submit" value="click me" />
+            }
+        </section>
+        @* 2nd way to send data from view to controller *@
+        <h4> pass data using request</h4>
+        <section>
+            </br>
+            <hr />
+            @using (Html.BeginForm("PostUsingRequest", "Home"))
+            {
+                <input type="text" name="firstName" /><br /><br />
+                <input type="text" name="lastName" /><br />
+                <br />
+                <input type="submit" value="click me" />
+            }
+        </section>
+        <hr />
+        @* 3nd way to send data from view to controller *@
+        <h4> pass data using from collection</h4>
+        <section>
+            </br>
+            @using (Html.BeginForm("PostUsingFormCollection", "Home"))
+            {
+                <input type="text" name="firstName" /><br /><br />
+                <input type="text" name="lastName" /><br />
+                <br />
+                <input type="submit" value="click me" />
+            }
+        </section>
+        @* 4nd way to send data from view to controller *@
+        <h4> pass data using stronglybinding</h4>
+        <section>
+            </br>
+            @using (Html.BeginForm("PostUsingBinding", "Home", FormMethod.Post))
+            {
+               // @Html.TextBoxFor(x => x.firstName)<br />
+               // @Html.TextBoxFor(x => x.lastName)<br />
+                <br />
+                <input type="submit" value="click me" />
+            }
+        </section>
+
+        @* loosly binding with validations *@
+        <section>
+            <br/>
+            @using (Html.BeginForm("PostUsingBinding", "Home" , FormMethod.Post))
+            {
+                @Html.ValidationSummary(); //for putting validations to all the fields
+                @Html.TextBoxFor(x=>x.FirstName)<br />      
+                @*@Html.ValidationMessageFor(x=>x.FirstName)<br />*@  @*Validation with strongly binding data*@
+                @Html.TextBox("LastName")<br />
+                @*@Html.ValidationMessage("LastName")<br />    to put validations on individual field*@
+                @Html.TextBox("Email")<br />
+                @*@Html.ValidationMessage("Email")*@<br/>
+                @Html.Editor("Age")<br />
+                @*@Html.ValidationMessage("Age")*@<br />
+                <br />
+                <input type="submit" value="click me" />
+            }
+        </section>
+    </div>
+
+</body>
+</html>
